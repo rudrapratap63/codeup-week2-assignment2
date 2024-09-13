@@ -1,24 +1,28 @@
-import java.util.Scanner;
-
 /*
 In this class, we will implement a method to find number of unique valid Palindrome using recursion
 Program Owner -> 11/09/2024
 Date -> Rudra Pratap Singh
- */
+*/
+
+import java.util.Scanner;
 public class countPalindromesTask1 {
     static String[] resultArray;
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("enter string :");
-        String originalString = input.nextLine();
-        if (originalString == null || originalString.isEmpty()) {
-            System.out.println("Error: String can't be empty");
-            input.close();
-            return;
+        try {
+            String originalString = input.nextLine();
+            if (originalString == null || originalString.isEmpty()) {
+                System.out.println("Error: String can't be empty");
+                input.close();
+                return;
+            }
+            String result = generateSubStrings(originalString,"", 0, 1);
+            System.out.println(result);
+            System.out.println("total palindrome is : "+countPalindrome(resultArray, 0, 0));
+        } catch(StackOverflowError e){
+            System.err.println("Please enter small string");
         }
-        String result = generateSubStrings(originalString,"", 0, 1);
-        System.out.println(result);
-        System.out.println("total palindrome is : "+countPalindrome(resultArray, 0, 0));
         input.close();
     }
 
@@ -47,7 +51,6 @@ public class countPalindromesTask1 {
                 resultArray = result.split(",");
                 }
             }
-            
             if (end == originalString.length()) {
                 return generateSubStrings(originalString, result, start+1, start+2);
             }
@@ -98,5 +101,4 @@ public class countPalindromesTask1 {
                 return countPalindrome(resultArray, ++index, count);
             }
         }
-
 }
